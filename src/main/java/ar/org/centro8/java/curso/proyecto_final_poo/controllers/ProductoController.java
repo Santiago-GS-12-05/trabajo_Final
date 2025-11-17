@@ -45,6 +45,18 @@ public class ProductoController {
         return "redirect:/productos";
     }
 
-
+    @GetMapping("/eliminar")
+    public String eliminar(@RequestParam int id, RedirectAttributes ra) {
+        try {
+            service.eliminar(id);
+            ra.addFlashAttribute("mensaje", "Producto eliminado correctamente.");
+        } catch (DataIntegrityViolationException e) {
+            ra.addFlashAttribute("error",
+                "No se puede eliminar el producto porque tiene ventas asociadas. " +
+                "Para eliminarlo, primero debe eliminar o anular esas ventas."
+            );
+        }
+        return "redirect:/productos";
+    }
 
 }
