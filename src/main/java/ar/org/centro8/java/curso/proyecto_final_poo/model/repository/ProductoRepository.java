@@ -26,24 +26,24 @@ public class ProductoRepository {
     public ProductoRepository(JdbcTemplate jdbc) { this.jdbc = jdbc; }
 
     public List<Producto> findAll() {
-        return jdbc.query("(COMPLETAR CON LA QUERY CORRESPONDIENTE)", mapper);
+        return jdbc.query("SELECT * FROM productos ORDER BY nombre", mapper);
     }
 
     public Producto findById(int id) {
-        return jdbc.queryForObject("(COMPLETAR CON LA QUERY CORRESPONDIENTE)", mapper, id);
+        return jdbc.queryForObject("SELECT * FROM productos WHERE id=?", mapper, id);
     }
 
     public void save(Producto p) {
-        jdbc.update("(COMPLETAR CON LA QUERY CORRESPONDIENTE)",
+        jdbc.update("INSERT INTO productos (nombre, precio_compra, precio_venta, stock) VALUES (?,?,?,?)",
                 p.getNombre(), p.getPrecioCompra(), p.getPrecioVenta(), p.getStock());
     }
 
     public void update(Producto p) {
-        jdbc.update("(COMPLETAR CON LA QUERY CORRESPONDIENTE)",
+        jdbc.update("UPDATE productos SET nombre=?, precio_compra=?, precio_venta=?, stock=? WHERE id=?",
                 p.getNombre(), p.getPrecioCompra(), p.getPrecioVenta(), p.getStock(), p.getId());
     }
 
     public void delete(int id) {
-        jdbc.update("(COMPLETAR CON LA QUERY CORRESPONDIENTE)", id);
+        jdbc.update("DELETE FROM productos WHERE id=?", id);
     }
 }
