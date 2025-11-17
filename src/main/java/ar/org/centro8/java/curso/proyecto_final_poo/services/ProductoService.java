@@ -12,9 +12,9 @@ public class ProductoService {
     private final ProductoRepository repo;
     public ProductoService(ProductoRepository repo) { this.repo = repo; }
 
-    public List<Producto> listar(){ return null; }
-    public Producto buscar(int id){ return null; }
-    public void guardar(Producto p){  }
-    public void actualizar(Producto p){  }
-    public void eliminar(int id){  }
+    public List<Producto> listar(){ return repo.findAll(); }
+    public Producto buscar(int id){ return repo.findById(id); }
+    public void guardar(Producto p){ repo.save(p); }
+    public void actualizar(Producto p){ repo.update(p); }
+    public void eliminar(int id){ repo.delete(id); }
 }
